@@ -3,16 +3,130 @@
   padding: 0;
 }
 
-h1 {
-  text-align: center;
+body {
+  display: flex;
+  flex-direction: column;
+  background-color:  #d3d3d3;
+  gap: 30px;
+}
+
+header {
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: space-between;
+ width: 100%;
+}
+
+header h1 {
   font-size: 2.5rem;
   color: black;
 }
 
+#main {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 78.1vh;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#contenu {
+  display: flex;
+  flex: 1;
+  height: 90%;
+}
+
 #boutonsection {
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  justify-content: space-around;
+  background-color: blue;
+  align-items: center;
+}
+
+#boutonsection input {
+  border-radius: 5px;
+  height: 30px;
+  width: 150px;
+}
+
+#boutonsection input:hover {
+  background-color: #9f9e9e;
+}
+
+/* Page avant selection d'un composant */
+#produitcontenant {
+  display: flex;
+  width: 75%;
 }
 
 #pageacceuil {
+  display: flex;
+  flex-direction: column;
+  background-color: #37b08d;
+  text-align: center;
+  justify-content: space-around;
+}
+
+/* Page d'affichage des composants selectionnés */
+#lesproduits {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #37b08d;
+}
+
+#headerproduit {
+  width : 100%;
+}
+
+#unproduit {
+  display: flex;
+  flex-wrap: wrap;
+  width: 24%;
+  flex-direction: row;
+  border: 0.1rem solid grey;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#unproduit div {
+  display: flex;
+  flex-direction: column;
   width: 50%;
+  padding-left: 0.5vw;
+}
+
+#unproduit img {
+  width: 100%;
+}
+
+#soumettre {
+  display: flex;
+  width: 100%;
+  height: 10%;
+  justify-content: space-around;
+  background-color: red;
+}
+
+#soumettre input{
+  border-radius: 5px;
+  height: 30px;
+  width: 150px;
+}
+
+#soumettre input:hover {
+  background-color: #9f9e9e;
+}
+
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #37b08d;
+  width: 100%;
 }
