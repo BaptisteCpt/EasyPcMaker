@@ -75,10 +75,15 @@ header h1 {
 }
 
 /* Page d'affichage des composants selectionnés */
-#lesproduits {
+#contenantproduits {
   display: flex;
   flex-wrap: wrap;
   background-color: #37b08d;
+}
+
+#lesproduits{
+  display: flex;
+  flex-wrap: wrap;
 }
 
 #headerproduit {
