@@ -1,5 +1,5 @@
 
-function replaceCPU(){
+async function replaceCPU(){
   let newSection = document.createElement('section');
   newSection.id = "lesproduits";
   let headerproduit = document.createElement('section');
@@ -15,24 +15,26 @@ function replaceCPU(){
   `;
   newSection.append(headerproduit);
 
-  for (i=0; i<5; i++ ){
+  const response = await fetch("https://easy-pc-maker.yoanc.dev/baptiste/cpu");
+  const data = await response.json();
+
+  data.forEach(element => {
     let article = document.createElement("article");
     article.id = "unproduit";
     article.innerHTML = `
-    <img id="image" src="img/Core i7-10700K.jpg"/>
+    <img id="image" src="img/${element.nom_cpu}.jpg"/>
         <div>
-             <p id="nom">nomcpu</p>
-             <p id="brand">brandcpu</p>
-             <blockquote id="description">descriptioncpu</blockquote>
-             <h5 id="conso">consocpu</h5>
+             <p id="nom">Nom : ${element.nom_cpu}</p>
+             <p id="brand">Marque : ${element.brand_cpu}</p>
+             <h5 id="conso">Conso : ${element.conso_cpu} Watt</h5>
            </div>`;
     newSection.append(article);
-  }
+  });
   document.querySelector("#produitcontenant section").replaceWith(newSection);
 }
 
 
-function replaceRAM(){
+async function replaceRAM(){
   let newSection = document.createElement('section');
   newSection.id = "lesproduits";
   let headerproduit = document.createElement('section');
@@ -47,25 +49,26 @@ function replaceRAM(){
   <input type="radio" name="filtre" id="LPDDR5" value="LPDDR5"/> <label for="LPDDR5">LPDDR5</label>
   `;
   newSection.append(headerproduit);
+  const response = await fetch("https://easy-pc-maker.yoanc.dev/baptiste/ram");
+  const data = await response.json();
 
-  for (i=0; i<5; i++ ){
+  data.forEach(element => {
     let article = document.createElement("article");
     article.id = "unproduit";
     article.innerHTML = `
-    <img id="image" src="img/Kingston Fury Impact.jpg"/>
+    <img id="image" src="img/${element.nom_ram}.jpg"/>
         <div>
-             <p id="nom">nomram</p>
-             <p id="brand">brandram</p>
-             <blockquote id="description">descriptionram</blockquote>
-             <h5 id="conso">consoram</h5>
+             <p id="nom">Nom : ${element.nom_ram}</p>
+             <p id="brand">Marque : ${element.brand_ram}</p>
+             <h5 id="conso">Conso : ${element.conso_ram} Watt</h5>
            </div>`;
     newSection.append(article);
-  }
+  });
   document.querySelector("#produitcontenant section").replaceWith(newSection);
 }
 
 
-function replaceMotherboard(){
+async function replaceMotherboard(){
   let newSection = document.createElement('section');
   newSection.id = "lesproduits";
   let headerproduit = document.createElement('section');
@@ -93,24 +96,25 @@ function replaceMotherboard(){
   `;
   newSection.append(headerproduit);
 
-  for (i=0; i<6; i++ ){
+    const response = await fetch("https://easy-pc-maker.yoanc.dev/baptiste/motherboard");
+  const data = await response.json();
+
+  data.forEach(element => {
     let article = document.createElement("article");
     article.id = "unproduit";
     article.innerHTML = `
-    <img id="image" src="img/MSI B550 Tomahawk.jpg"/>
+    <img id="image" src="img/${element.nom_mb}.jpg"/>
         <div>
-             <p id="nom">nommb</p>
-             <p id="brand">brandmb</p>
-             <blockquote id="description">descriptionmb</blockquote>
-             <h5 id="conso">consomb</h5>
+             <p id="nom">Nom : ${element.nom_mb}</p>
+             <p id="brand">Marque : ${element.brand_mb}</p>
            </div>`;
     newSection.append(article);
-  }
+  });
   document.querySelector("#produitcontenant section").replaceWith(newSection);
 }
 
 
-function replaceSSD(){
+async function replaceSSD(){
   let newSection = document.createElement('section');
   newSection.id = "lesproduits";
   let headerproduit = document.createElement('section');
@@ -126,24 +130,26 @@ function replaceSSD(){
   `;
   newSection.append(headerproduit);
 
-  for (i=0; i<6; i++ ){
+    const response = await fetch("https://easy-pc-maker.yoanc.dev/baptiste/ssd");
+  const data = await response.json();
+
+  data.forEach(element => {
     let article = document.createElement("article");
     article.id = "unproduit";
     article.innerHTML = `
-    <img id="image" src="img/Samsung 970 EVO Plus 2TO.jpg"/>
+    <img id="image" src="img/${element.nom_ssd}.jpg"/>
         <div>
-             <p id="nom">nomssd</p>
-             <p id="brand">brandssd</p>
-             <blockquote id="description">descriptionssd</blockquote>
-             <h5 id="conso">consossd</h5>
+             <p id="nom">Nom : ${element.nom_ssd}</p>
+             <p id="brand">Marque : ${element.brand_ssd}</p>
+             <h5 id="conso">Conso : ${element.conso_ssd} Watt</h5>
            </div>`;
     newSection.append(article);
-  }
+  });
   document.querySelector("#produitcontenant section").replaceWith(newSection);
 }
 
 
-function replaceCG(){
+async function replaceCG(){
   let newSection = document.createElement('section');
   newSection.id = "lesproduits";
   let headerproduit = document.createElement('section');
@@ -158,26 +164,27 @@ function replaceCG(){
   <input type="radio" name="filtre" id="PCIe 2.0 x16" value="PCIe 2.0 x16"/> <label for="PCIe 2.0 x16">PCIe 2.0 x16</label>
   `;
   newSection.append(headerproduit);
+  const response = await fetch("https://easy-pc-maker.yoanc.dev/baptiste/gpu");
+  const data = await response.json();
 
-  for (i=0; i<5; i++ ){
+  data.forEach(element => {
     let article = document.createElement("article");
     article.id = "unproduit";
     article.innerHTML = `
-    <img id="image" src="img/RTX 4090.jpg"/>
+    <img id="image" src="img/${element.nom_gpu}.jpg"/>
         <div>
-             <p id="nom">nomcg</p>
-             <p id="brand">brandcg</p>
-             <blockquote id="description">descriptioncg</blockquote>
-             <h5 id="conso">consocg</h5>
+             <p id="nom">Nom : ${element.nom_gpu}</p>
+             <p id="brand">Marque : ${element.brand_gpu}</p>
+             <h5 id="conso">Conso : ${element.conso_gpu} Watt</h5>
            </div>`;
     newSection.append(article);
-  }
+  });
   document.querySelector("#produitcontenant section").replaceWith(newSection);
 }
 
 
 
-function replaceAIO(){
+async function replaceAIO(){
   let newSection = document.createElement('section');
   newSection.id = "lesproduits";
   let headerproduit = document.createElement('section');
@@ -191,25 +198,27 @@ function replaceAIO(){
   <input type="radio" name="filtre" id="280" value="280"/> <label for="280">280cm</label>
   `;
   newSection.append(headerproduit);
+const response = await fetch("https://easy-pc-maker.yoanc.dev/baptiste/cooler");
+  const data = await response.json();
 
-  for (i=0; i<5; i++ ){
+  data.forEach(element => {
     let article = document.createElement("article");
     article.id = "unproduit";
     article.innerHTML = `
-    <img id="image" src="img/Arctic Liquid Freezer II.jpg"/>
+    <img id="image" src="img/${element.nom_ref}.jpg"/>
         <div>
-             <p id="nom">nomaio</p>
-             <p id="brand">brandaio</p>
-             <blockquote id="description">descriptionaio</blockquote>
-             <h5 id="conso">consoaio</h5>
+             <p id="nom">Nom : ${element.nom_ref}</p>
+             <p id="brand">Marque : ${element.brand_ref}</p>
+             <h5 id="size"> Taille : ${element.size_aio}cm</h5>
+             <h5 id="conso">Conso : ${element.conso_ref} Watt</h5>
            </div>`;
     newSection.append(article);
-  }
+  });
   document.querySelector("#produitcontenant section").replaceWith(newSection);
 }
 
 
-function replaceCASE(){
+async function replaceCASE(){
   let newSection = document.createElement('section');
   newSection.id = "lesproduits";
   let headerproduit = document.createElement('section');
@@ -224,25 +233,26 @@ function replaceCASE(){
   <input type="radio" name="filtre" id="XL-ATX" value="XL-ATX"/> <label for="XL-ATX">XL-ATX</label>
   `;
   newSection.append(headerproduit);
+const response = await fetch("https://easy-pc-maker.yoanc.dev/baptiste/case");
+  const data = await response.json();
 
-  for (i=0; i<5; i++ ){
+  data.forEach(element => {
     let article = document.createElement("article");
     article.id = "unproduit";
     article.innerHTML = `
-    <img id="image" src="img/Cooler Master NR200.jpg"/>
+    <img id="image" src="img/${element.nom_case}.jpg"/>
         <div>
-             <p id="nom">nomcase</p>
-             <p id="brand">brandcase</p>
-             <blockquote id="description">descriptioncase</blockquote>
-             <h5 id="conso">consocase</h5>
+             <p id="nom">Nom : ${element.nom_case}</p>
+             <p id="brand">Marque : ${element.brand_case}</p>
+             <h5 id="conso">Conso : ${element.conso_case} Watt</h5>
            </div>`;
     newSection.append(article);
-  }
+  });
   document.querySelector("#produitcontenant section").replaceWith(newSection);
 }
 
 
-function replaceALIM(){
+async function replaceALIM(){
   let newSection = document.createElement('section');
   newSection.id = "lesproduits";
   let headerproduit = document.createElement('section');
@@ -257,19 +267,20 @@ function replaceALIM(){
   <input type="radio" name="filtre" id="550" value="550"/> <label for="550">550Watt</label>
   `;
   newSection.append(headerproduit);
+  const response = await fetch("https://easy-pc-maker.yoanc.dev/baptiste/power-supply");
+  const data = await response.json();
 
-  for (i=0; i<5; i++ ){
+  data.forEach(element => {
     let article = document.createElement("article");
     article.id = "unproduit";
     article.innerHTML = `
-    <img id="image" src="img/Corsair RM850x.jpg"/>
+    <img id="image" src="img/${element.nom_alim}.jpg"/>
         <div>
-             <p id="nom">nomalim</p>
-             <p id="brand">brandalim</p>
-             <blockquote id="description">descriptionalim</blockquote>
-             <h5 id="conso">consoalim</h5>
+             <p id="nom">Nom : ${element.nom_alim}</p>
+             <p id="brand">Marque : ${element.brand_alim}</p>
+             <h5 id="conso">Conso : ${element.watt_alim} Watt</h5>
            </div>`;
     newSection.append(article);
-  }
+  });
   document.querySelector("#produitcontenant section").replaceWith(newSection);
 }
