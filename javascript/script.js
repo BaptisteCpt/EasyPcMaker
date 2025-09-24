@@ -334,7 +334,7 @@ async function replaceCASE(filter = "all"){
   headerproduit.id = "headerproduit";
   headerproduit.innerHTML = `
   <h4>Voici Les Boitiers Disponibles</h4>
-  <p>Filtré sur : ${filter} taille</p>
+  <p>Filtré sur taille : ${filter} </p>
   <input type="radio" name="filtre" id="ATX" value="ATX" onclick="filtrerCase(value)"/> <label for="ATX">ATX</label>
   <input type="radio" name="filtre" id="MicroATX" value="MicroATX" onclick="filtrerCase(value)"/> <label for="MicroATX">MicroATX</label>
   <input type="radio" name="filtre" id="MiniITX" value="MiniITX" onclick="filtrerCase(value)"/> <label for="MiniITX">MiniITX</label>
@@ -361,76 +361,8 @@ async function replaceCASE(filter = "all"){
       newSection.append(article);
     });
   }
-  else if(filter == "ATX"){
-    const response = await fetch("https://easy-pc-maker.yoanc.dev/baptiste/case");
-    const data = await response.json();
-
-    data.forEach(element => {
-      let article = document.createElement("article");
-      article.id = "unproduit";
-      article.innerHTML = `
-      <img id="image" src="img/${element.nom_case}.jpg"/>
-          <div>
-              <p id="nom">Nom : ${element.nom_case}</p>
-              <p id="brand">Marque : ${element.brand_case}</p>
-              <h5 id="conso">Conso : ${element.conso_case} Watt</h5>
-          </div>`;
-      newSection.append(article);
-    });
-  }
-  else if(filter == "MicroATX"){
-    const response = await fetch("https://easy-pc-maker.yoanc.dev/baptiste/case");
-    const data = await response.json();
-
-    data.forEach(element => {
-      let article = document.createElement("article");
-      article.id = "unproduit";
-      article.innerHTML = `
-      <img id="image" src="img/${element.nom_case}.jpg"/>
-          <div>
-              <p id="nom">Nom : ${element.nom_case}</p>
-              <p id="brand">Marque : ${element.brand_case}</p>
-              <h5 id="conso">Conso : ${element.conso_case} Watt</h5>
-          </div>`;
-      newSection.append(article);
-    });
-  }
-  else if(filter == "MiniITX"){
-    const response = await fetch("https://easy-pc-maker.yoanc.dev/baptiste/case");
-    const data = await response.json();
-
-    data.forEach(element => {
-      let article = document.createElement("article");
-      article.id = "unproduit";
-      article.innerHTML = `
-      <img id="image" src="img/${element.nom_case}.jpg"/>
-          <div>
-              <p id="nom">Nom : ${element.nom_case}</p>
-              <p id="brand">Marque : ${element.brand_case}</p>
-              <h5 id="conso">Conso : ${element.conso_case} Watt</h5>
-          </div>`;
-      newSection.append(article);
-    });
-  }
-  else if(filter == "EATX"){
-    const response = await fetch("https://easy-pc-maker.yoanc.dev/baptiste/case");
-    const data = await response.json();
-
-    data.forEach(element => {
-      let article = document.createElement("article");
-      article.id = "unproduit";
-      article.innerHTML = `
-      <img id="image" src="img/${element.nom_case}.jpg"/>
-          <div>
-              <p id="nom">Nom : ${element.nom_case}</p>
-              <p id="brand">Marque : ${element.brand_case}</p>
-              <h5 id="conso">Conso : ${element.conso_case} Watt</h5>
-          </div>`;
-      newSection.append(article);
-    });
-  }
-  else if(filter == "XL-ATX"){
-    const response = await fetch("https://easy-pc-maker.yoanc.dev/baptiste/case");
+  else{
+    const response = await fetch(`https://easy-pc-maker.yoanc.dev/baptiste/case?size_mb=${filter}`);
     const data = await response.json();
 
     data.forEach(element => {
