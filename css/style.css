@@ -90,7 +90,7 @@ header h1 {
   width : 100%;
 }
 
-#unproduit {
+.unproduit {
   display: flex;
   flex-wrap: wrap;
   width: 24%;
@@ -100,15 +100,20 @@ header h1 {
   justify-content: space-between;
 }
 
-#unproduit div {
+.unproduit div {
   display: flex;
   flex-direction: column;
   width: 50%;
   padding-left: 0.5vw;
 }
 
-#unproduit img {
+.unproduit img {
   width: 100%;
+}
+
+.selected {
+    border: 3px solid #00bfff;
+    transition: border 0.3s ease;
 }
 
 #soumettre {
@@ -127,6 +132,24 @@ header h1 {
 
 #soumettre input:hover {
   background-color: #9f9e9e;
+}
+
+#pop_info {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+#popup {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border-radius: 5px;
+  box-shadow : 0 2px 6px rgba(0,0,0,0.3);
+  opacity: 0;
+  transition : opacity 0.3s ease;
 }
 
 footer {
