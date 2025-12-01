@@ -15,13 +15,13 @@
     <section id="contenu">
     <section id="boutonsection">
       <input type="submit" id="cpu" value="Processeur" onclick="replaceCPU()"/>
-      <input type="submit" id="cpu" value="RAM" onclick="replaceRAM()"/>
-      <input type="submit" id="cpu" value="Carte Mère" onclick="replaceMotherboard()"/>
-      <input type="submit" id="cpu" value="SSD" onclick="replaceSSD()"/>
-      <input type="submit" id="cpu" value="carte graphique" onclick="replaceCG()"/>
-      <input type="submit" id="cpu" value="Refroidissement" onclick="replaceAIO()"/>
-      <input type="submit" id="cpu" value="Boitier" onclick="replaceCASE()"/>
-      <input type="submit" id="cpu" value="Alimentation" onclick="replaceALIM()"/>
+      <input type="submit" id="ram" value="RAM" onclick="replaceRAM()"/>
+      <input type="submit" id="motherboard" value="Carte Mère" onclick="replaceMotherboard()"/>
+      <input type="submit" id="ssd" value="SSD" onclick="replaceSSD()"/>
+      <input type="submit" id="gpu" value="carte graphique" onclick="replaceCG()"/>
+      <input type="submit" id="aio" value="Refroidissement" onclick="replaceAIO()"/>
+      <input type="submit" id="case" value="Boitier" onclick="replaceCASE()"/>
+      <input type="submit" id="alim" value="Alimentation" onclick="replaceALIM()"/>
     </section>
     <section id="produitcontenant">
       <section id="pageacceuil">
@@ -29,6 +29,7 @@
           <p>Ici vous pouvez sélectionner composants par composants sans vous souciez de problèmes de compatibilités, si un composant n'est pas compatible avec un que vous selectionné alors il ne vous sera pas proposé.</p>
           <p>On rappel que ce configomatique n'a pour seul et unique but de vous permettre de verifier si les composants sont compatible, il ne gère donc pas les prix des composants</p>
           <p>Une fois votre sélection terminé, vous pourrez cliquer sur le bouton "soumettre" qui vous emmènera sur une page de récapitulatif.</p>
+          <p>Attention l'ordre de selection des composant est prédéfini !</p>
       </section>
     </section>
 
@@ -36,8 +37,11 @@
 
     <section id="soumettre">
       <input type="submit" id="soumettre" value="soumettre"/>
-      <input type="reset" id="reset" value="reset"/>
+      <input type="reset" id="reset" value="reset" onclick="reset()"/>
     </section>
+
+    <div id="pop_info" style="position: fixed; top: 20px; right: 20px; z-index: 1000;"></div>
+
   </section>
 
   <footer>
