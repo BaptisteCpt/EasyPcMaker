@@ -1,52 +1,104 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Easy PC Maker</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/styleIndex.css" />
   </head>
   <body>
     <header>
-      
       <h1>Easy PC Maker</h1>
     </header>
-  <section id="main">
-    <section id="contenu">
-    <section id="boutonsection">
-      <input type="submit" id="cpu" value="Processeur" onclick="replaceCPU()"/>
-      <input type="submit" id="ram" value="RAM" onclick="replaceRAM()"/>
-      <input type="submit" id="motherboard" value="Carte Mère" onclick="replaceMotherboard()"/>
-      <input type="submit" id="ssd" value="SSD" onclick="replaceSSD()"/>
-      <input type="submit" id="gpu" value="carte graphique" onclick="replaceCG()"/>
-      <input type="submit" id="aio" value="Refroidissement" onclick="replaceAIO()"/>
-      <input type="submit" id="case" value="Boitier" onclick="replaceCASE()"/>
-      <input type="submit" id="alim" value="Alimentation" onclick="replaceALIM()"/>
-    </section>
-    <section id="produitcontenant">
-      <section id="pageacceuil">
-          <h2>Bienvenue sur le Configomatique</h2>
-          <p>Ici vous pouvez sélectionner composants par composants sans vous souciez de problèmes de compatibilités, si un composant n'est pas compatible avec un que vous selectionné alors il ne vous sera pas proposé.</p>
-          <p>On rappel que ce configomatique n'a pour seul et unique but de vous permettre de verifier si les composants sont compatible, il ne gère donc pas les prix des composants</p>
-          <p>Une fois votre sélection terminé, vous pourrez cliquer sur le bouton "soumettre" qui vous emmènera sur une page de récapitulatif.</p>
-          <p>Attention l'ordre de selection des composant est prédéfini !</p>
+    <section id="main">
+      <section id="contenu">
+        <section id="boutonsection">
+          <input
+            type="submit"
+            id="cpu"
+            value="Processeur"
+            onclick="replaceCPU()"
+          />
+          <input type="submit" id="ram" value="RAM" onclick="replaceRAM()" />
+          <input
+            type="submit"
+            id="motherboard"
+            value="Carte Mère"
+            onclick="replaceMotherboard()"
+          />
+          <input type="submit" id="ssd" value="SSD" onclick="replaceSSD()" />
+          <input
+            type="submit"
+            id="gpu"
+            value="carte graphique"
+            onclick="replaceCG()"
+          />
+          <input
+            type="submit"
+            id="aio"
+            value="Refroidissement"
+            onclick="replaceAIO()"
+          />
+          <input
+            type="submit"
+            id="case"
+            value="Boitier"
+            onclick="replaceCASE()"
+          />
+          <input
+            type="submit"
+            id="alim"
+            value="Alimentation"
+            onclick="replaceALIM()"
+          />
+        </section>
+        <section id="produitcontenant">
+          <section id="pageacceuil">
+            <h2>Bienvenue sur mon Configomatique</h2>
+            <p>
+              Ici vous pouvez sélectionner composants par composants sans vous
+              souciez de problèmes de compatibilités, si un composant n'est pas
+              compatible avec un que vous selectionné alors il ne vous sera pas
+              proposé.
+              <br/>
+              On rappel que ce configomatique n'a pour seul et unique but de
+              vous permettre de verifier si les composants sont compatible, il
+              ne gère donc pas les prix des composants
+              <br/>
+              Une fois votre sélection terminé, vous pourrez cliquer sur le
+              bouton "soumettre" qui vous emmènera sur une page de
+              récapitulatif.
+            </p>
+            <h2>Attention l'ordre de selection des composant est prédéfini !</h2>
+          </section>
+        </section>
       </section>
+
+      <section id="soumettre">
+        <input type="submit" id="soumettre" value="Valider" onclick="validate()"/>
+        <input type="reset" id="reset" value="Recommencer" onclick="reset()" />
+      </section>
+
+      <div
+        id="pop_info"
+        style="position: fixed; top: 20px; right: 20px; z-index: 1000"
+      ></div>
     </section>
 
-  </section>
-
-    <section id="soumettre">
-      <input type="submit" id="soumettre" value="soumettre"/>
-      <input type="reset" id="reset" value="reset" onclick="reset()"/>
-    </section>
-
-    <div id="pop_info" style="position: fixed; top: 20px; right: 20px; z-index: 1000;"></div>
-
-  </section>
-
-  <footer>
-    <h6>heu</h6>
-  </footer>
-    <script src="javascript/script.js"></script>
+    <footer>
+      <p id="copyright">
+        <script>
+          date = new Date();
+          year = date.getFullYear();
+          if (year == "2025") {
+            document.write("© 2025");
+          } else {
+            document.write("© 2025 - " + year);
+          }
+        </script>
+         Baptiste Coupat. Tous droits réservés.
+      </p>
+    </footer>
+    <script src="javascript/scriptAPI.js"></script>
   </body>
 </html>

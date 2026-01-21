@@ -1,21 +1,24 @@
 const composants = [
-    "cpu", "ram", "motherboard", "ssd",
-    "gpu", "aio", "case", "alim"
+  "cpu",
+  "ram",
+  "motherboard",
+  "ssd",
+  "gpu",
+  "aio",
+  "case",
+  "alim",
 ];
 let ComposantSelected = {};
 
-composants.forEach(comp => {
-    const recup = localStorage.getItem(comp);
-    ComposantSelected[comp] = recup ? JSON.parse(recup) : null;
+composants.forEach((comp) => {
+  const recup = localStorage.getItem(comp);
+  ComposantSelected[comp] = recup ? JSON.parse(recup) : null;
 });
 
-
-
-
-async function replaceCPU(filter = "all"){
-  let newSection = document.createElement('section');
+async function replaceCPU(filter = "all") {
+  let newSection = document.createElement("section");
   newSection.id = "lesproduits";
-  let headerproduit = document.createElement('section');
+  let headerproduit = document.createElement("section");
   headerproduit.id = "headerproduit";
   headerproduit.innerHTML = `
   <h4>Voici Les CPUs Disponibles</h4>
@@ -32,13 +35,13 @@ async function replaceCPU(filter = "all"){
   let data = await response.json();
 
   if (filter !== "all") {
-      data = data.filter(cpu => cpu.nom_socket === filter);
+    data = data.filter((cpu) => cpu.nom_socket === filter);
   }
 
-  data.forEach(element => {
-      let article = document.createElement("article");
-      article.classList.add("unproduit");
-      article.innerHTML = `
+  data.forEach((element) => {
+    let article = document.createElement("article");
+    article.classList.add("unproduit");
+    article.innerHTML = `
       <img id="image" src="img/${element.nom_cpu}.jpg"/>
           <div>
               <p id="nom">Nom : ${element.nom_cpu}</p>
@@ -49,27 +52,29 @@ async function replaceCPU(filter = "all"){
               </button>
           </div>`;
 
-      if (ComposantSelected.cpu && ComposantSelected.cpu.nom_cpu === element.nom_cpu) {
-        article.classList.add("selected");
-      }
-      newSection.append(article);
-    });
+    if (
+      ComposantSelected.cpu &&
+      ComposantSelected.cpu.nom_cpu === element.nom_cpu
+    ) {
+      article.classList.add("selected");
+    }
+    newSection.append(article);
+  });
   document.querySelector("#produitcontenant section").replaceWith(newSection);
 }
 
-
 const ramCompatibilite = {
-  "AM5": ["DDR5"],
-  "AM4": ["DDR4"],
-  "LGA1700": ["DDR5"],
-  "LGA1200": ["DDR4"],
-  "TR4": ["DDR4"]
+  AM5: ["DDR5"],
+  AM4: ["DDR4"],
+  LGA1700: ["DDR5"],
+  LGA1200: ["DDR4"],
+  TR4: ["DDR4"],
 };
 
-async function replaceRAM(filter = "all"){
-  let newSection = document.createElement('section');
+async function replaceRAM(filter = "all") {
+  let newSection = document.createElement("section");
   newSection.id = "lesproduits";
-  let headerproduit = document.createElement('section');
+  let headerproduit = document.createElement("section");
   headerproduit.id = "headerproduit";
   headerproduit.innerHTML = `
   <h4>Voici Les RAMs Disponibles</h4>
@@ -85,18 +90,19 @@ async function replaceRAM(filter = "all"){
   let data = await response.json();
 
   if (ComposantSelected.cpu) {
-        const compatibles = ramCompatibilite[ComposantSelected.cpu.nom_socket] || []; // fait gaffe si le nom est pas trouvé
-        data = data.filter(ram => compatibles.includes(ram.type));
-    }
+    const compatibles =
+      ramCompatibilite[ComposantSelected.cpu.nom_socket] || []; // fait gaffe si le nom est pas trouvé
+    data = data.filter((ram) => compatibles.includes(ram.type));
+  }
 
   if (filter !== "all") {
-        data = data.filter(ram => ram.type === filter);
-    }
+    data = data.filter((ram) => ram.type === filter);
+  }
 
-  data.forEach(element => {
-      let article = document.createElement("article");
-      article.classList.add("unproduit");
-      article.innerHTML = `
+  data.forEach((element) => {
+    let article = document.createElement("article");
+    article.classList.add("unproduit");
+    article.innerHTML = `
       <img id="image" src="img/${element.nom_ram}.jpg"/>
           <div>
               <p id="nom">Nom : ${element.nom_ram}</p>
@@ -106,19 +112,21 @@ async function replaceRAM(filter = "all"){
                 Choisir cette RAM
               </button>
           </div>`;
-      if (ComposantSelected.ram && ComposantSelected.ram.nom_ram === element.nom_ram) {
-        article.classList.add("selected");
-      }
-      newSection.append(article);
-    });
+    if (
+      ComposantSelected.ram &&
+      ComposantSelected.ram.nom_ram === element.nom_ram
+    ) {
+      article.classList.add("selected");
+    }
+    newSection.append(article);
+  });
   document.querySelector("#produitcontenant section").replaceWith(newSection);
 }
 
-
-async function replaceMotherboard(filter = "all"){
-  let newSection = document.createElement('section');
+async function replaceMotherboard(filter = "all") {
+  let newSection = document.createElement("section");
   newSection.id = "lesproduits";
-  let headerproduit = document.createElement('section');
+  let headerproduit = document.createElement("section");
   headerproduit.id = "headerproduit";
   headerproduit.innerHTML = `
   <h4>Voici Les Cartes Mères Disponibles</h4>
@@ -150,29 +158,34 @@ async function replaceMotherboard(filter = "all"){
   `;
   newSection.append(headerproduit);
 
-  const response = await fetch("https://easy-pc-maker.yoanc.dev/baptiste/motherboard");
+  const response = await fetch(
+    "https://easy-pc-maker.yoanc.dev/baptiste/motherboard",
+  );
   let data = await response.json();
 
   if (ComposantSelected.cpu) {
-      data = data.filter(mb => mb.nom_socket === ComposantSelected.cpu.nom_socket);
+    data = data.filter(
+      (mb) => mb.nom_socket === ComposantSelected.cpu.nom_socket,
+    );
   }
   if (ComposantSelected.ram) {
-      data = data.filter(mb => mb.type === ComposantSelected.ram.type);
+    data = data.filter((mb) => mb.type === ComposantSelected.ram.type);
   }
 
   if (filter !== "all") {
-      data = data.filter(mb => 
-          mb.nom_socket === filter || 
-          mb.type === filter || 
-          mb.pcie === filter || 
-          mb.size_mb === filter
-      );
+    data = data.filter(
+      (mb) =>
+        mb.nom_socket === filter ||
+        mb.type === filter ||
+        mb.pcie === filter ||
+        mb.size_mb === filter,
+    );
   }
 
-    data.forEach(element => {
-      let article = document.createElement("article");
-      article.classList.add("unproduit");
-      article.innerHTML = `
+  data.forEach((element) => {
+    let article = document.createElement("article");
+    article.classList.add("unproduit");
+    article.innerHTML = `
       <img id="image" src="img/${element.nom_motherboard}.jpg"/>
           <div>
               <p id="nom">Nom : ${element.nom_motherboard}</p>
@@ -182,19 +195,21 @@ async function replaceMotherboard(filter = "all"){
                 Choisir cette Carte Mère
               </button>
           </div>`;
-      if (ComposantSelected.motherboard && ComposantSelected.motherboard.nom_motherboard === element.nom_motherboard) {
-        article.classList.add("selected");
-      }
-      newSection.append(article);
-    });
+    if (
+      ComposantSelected.motherboard &&
+      ComposantSelected.motherboard.nom_motherboard === element.nom_motherboard
+    ) {
+      article.classList.add("selected");
+    }
+    newSection.append(article);
+  });
   document.querySelector("#produitcontenant section").replaceWith(newSection);
 }
 
-
-async function replaceSSD(filter = "all"){
-  let newSection = document.createElement('section');
+async function replaceSSD(filter = "all") {
+  let newSection = document.createElement("section");
   newSection.id = "lesproduits";
-  let headerproduit = document.createElement('section');
+  let headerproduit = document.createElement("section");
   headerproduit.id = "headerproduit";
   headerproduit.innerHTML = `
   <h4>Voici Les SSDs Disponibles</h4>
@@ -211,13 +226,13 @@ async function replaceSSD(filter = "all"){
   let data = await response.json();
 
   if (filter !== "all") {
-      data = data.filter(ssd => ssd.brand_ssd === filter);
+    data = data.filter((ssd) => ssd.brand_ssd === filter);
   }
 
-  data.forEach(element => {
-      let article = document.createElement("article");
-      article.classList.add("unproduit");
-      article.innerHTML = `
+  data.forEach((element) => {
+    let article = document.createElement("article");
+    article.classList.add("unproduit");
+    article.innerHTML = `
       <img id="image" src="img/${element.nom_ssd}.jpg"/>
           <div>
               <p id="nom">Nom : ${element.nom_ssd}</p>
@@ -227,19 +242,21 @@ async function replaceSSD(filter = "all"){
                   Choisir ce SSD
               </button>
           </div>`;
-      if (ComposantSelected.ssd && ComposantSelected.ssd.nom_ssd === element.nom_ssd) {
-        article.classList.add("selected");
-      }
-      newSection.append(article);
-    });
+    if (
+      ComposantSelected.ssd &&
+      ComposantSelected.ssd.nom_ssd === element.nom_ssd
+    ) {
+      article.classList.add("selected");
+    }
+    newSection.append(article);
+  });
   document.querySelector("#produitcontenant section").replaceWith(newSection);
 }
 
-
-async function replaceCG(filter = "all"){
-  let newSection = document.createElement('section');
+async function replaceCG(filter = "all") {
+  let newSection = document.createElement("section");
   newSection.id = "lesproduits";
-  let headerproduit = document.createElement('section');
+  let headerproduit = document.createElement("section");
   headerproduit.id = "headerproduit";
   headerproduit.innerHTML = `
   <h4>Voici Les Cartes Graphiques Disponibles</h4>
@@ -254,17 +271,19 @@ async function replaceCG(filter = "all"){
   let data = await response.json();
 
   if (ComposantSelected.motherboard) {
-    data = data.filter(gpu => gpu.pcie === ComposantSelected.motherboard.pcie );
+    data = data.filter(
+      (gpu) => gpu.pcie === ComposantSelected.motherboard.pcie,
+    );
   }
 
   if (filter !== "all") {
-      data = data.filter(gpu => gpu.brand_gpu === filter);
+    data = data.filter((gpu) => gpu.brand_gpu === filter);
   }
 
- data.forEach(element => {
-      let article = document.createElement("article");
-      article.classList.add("unproduit");
-      article.innerHTML = `
+  data.forEach((element) => {
+    let article = document.createElement("article");
+    article.classList.add("unproduit");
+    article.innerHTML = `
       <img id="image" src="img/${element.nom_gpu}.jpg"/>
           <div>
               <p id="nom">Nom : ${element.nom_gpu}</p>
@@ -274,20 +293,21 @@ async function replaceCG(filter = "all"){
                   Choisir cette Carte Graphique
               </button>
           </div>`;
-      if (ComposantSelected.gpu && ComposantSelected.gpu.nom_gpu === element.nom_gpu) {
-        article.classList.add("selected");
-      }
-      newSection.append(article);
-    });
+    if (
+      ComposantSelected.gpu &&
+      ComposantSelected.gpu.nom_gpu === element.nom_gpu
+    ) {
+      article.classList.add("selected");
+    }
+    newSection.append(article);
+  });
   document.querySelector("#produitcontenant section").replaceWith(newSection);
 }
 
-
-
-async function replaceAIO(filter = "all"){
-  let newSection = document.createElement('section');
+async function replaceAIO(filter = "all") {
+  let newSection = document.createElement("section");
   newSection.id = "lesproduits";
-  let headerproduit = document.createElement('section');
+  let headerproduit = document.createElement("section");
   headerproduit.id = "headerproduit";
   headerproduit.innerHTML = `
   <h4>Voici Les Refroidissements Disponibles</h4>
@@ -298,21 +318,25 @@ async function replaceAIO(filter = "all"){
   <input type="reset" name ="reset" value="reset" onclick="filtrerAIO('all')"/>
   `;
   newSection.append(headerproduit);
-const response = await fetch("https://easy-pc-maker.yoanc.dev/baptiste/cooler");
+  const response = await fetch(
+    "https://easy-pc-maker.yoanc.dev/baptiste/cooler",
+  );
   let data = await response.json();
 
   if (ComposantSelected.cpu) {
-    data = data.filter(aio => aio.sockets_compatibles.includes(ComposantSelected.cpu.nom_socket));
+    data = data.filter((aio) =>
+      aio.sockets_compatibles.includes(ComposantSelected.cpu.nom_socket),
+    );
   }
 
   if (filter !== "all") {
-      data = data.filter(aio => aio.size_aio === filter);
+    data = data.filter((aio) => aio.size_aio === filter);
   }
 
-  data.forEach(element => {
-      let article = document.createElement("article");
-      article.classList.add("unproduit");
-      article.innerHTML = `
+  data.forEach((element) => {
+    let article = document.createElement("article");
+    article.classList.add("unproduit");
+    article.innerHTML = `
       <img id="image" src="img/${element.nom_ref}.jpg"/>
           <div>
               <p id="nom">Nom : ${element.nom_ref}</p>
@@ -322,19 +346,21 @@ const response = await fetch("https://easy-pc-maker.yoanc.dev/baptiste/cooler");
                   Choisir ce Refroidissement
               </button>
           </div>`;
-      if (ComposantSelected.aio && ComposantSelected.aio.nom_ref === element.nom_ref) {
-        article.classList.add("selected");
-      }
-      newSection.append(article);
-    });
+    if (
+      ComposantSelected.aio &&
+      ComposantSelected.aio.nom_ref === element.nom_ref
+    ) {
+      article.classList.add("selected");
+    }
+    newSection.append(article);
+  });
   document.querySelector("#produitcontenant section").replaceWith(newSection);
 }
 
-
-async function replaceCASE(filter = "all"){
-  let newSection = document.createElement('section');
+async function replaceCASE(filter = "all") {
+  let newSection = document.createElement("section");
   newSection.id = "lesproduits";
-  let headerproduit = document.createElement('section');
+  let headerproduit = document.createElement("section");
   headerproduit.id = "headerproduit";
   headerproduit.innerHTML = `
   <h4>Voici Les Boitiers Disponibles</h4>
@@ -351,17 +377,19 @@ async function replaceCASE(filter = "all"){
   let data = await response.json();
 
   if (ComposantSelected.motherboard) {
-    data = data.filter(cas => cas.sizes_motherboard.includes(ComposantSelected.motherboard.size_mb));
+    data = data.filter((cas) =>
+      cas.sizes_motherboard.includes(ComposantSelected.motherboard.size_mb),
+    );
   }
 
   if (filter !== "all") {
-    data = data.filter(cas => cas.sizes_motherboard.includes(filter));
+    data = data.filter((cas) => cas.sizes_motherboard.includes(filter));
   }
 
-  data.forEach(element => {
-      let article = document.createElement("article");
-      article.classList.add("unproduit");
-      article.innerHTML = `
+  data.forEach((element) => {
+    let article = document.createElement("article");
+    article.classList.add("unproduit");
+    article.innerHTML = `
       <img id="image" src="img/${element.nom_case}.jpg"/>
           <div>
               <p id="nom">Nom : ${element.nom_case}</p>
@@ -371,43 +399,54 @@ async function replaceCASE(filter = "all"){
                   Choisir ce Boîtier
               </button>
           </div>`;
-      if (ComposantSelected.case && ComposantSelected.case.nom_case === element.nom_case) {
-        article.classList.add("selected");
-      }
-      newSection.append(article);
-    });
+    if (
+      ComposantSelected.case &&
+      ComposantSelected.case.nom_case === element.nom_case
+    ) {
+      article.classList.add("selected");
+    }
+    newSection.append(article);
+  });
   document.querySelector("#produitcontenant section").replaceWith(newSection);
 }
 
-
-async function replaceALIM(filter = "all"){
-  let newSection = document.createElement('section');
+async function replaceALIM(filter = "all") {
+  let newSection = document.createElement("section");
   newSection.id = "lesproduits";
-  let headerproduit = document.createElement('section');
+  let headerproduit = document.createElement("section");
   headerproduit.id = "headerproduit";
   headerproduit.innerHTML = `
   <h4>Voici Les Alimentations Disponibles</h4>
-  <input type="radio" name="filtre" id="1000" value="1000" onclick="filtrerAlim(value)" ${filter === "1000" ? "checked" : ""}/> <label for="1000">1000Watt</label>
-  <input type="radio" name="filtre" id="850" value="850" onclick="filtrerAlim(value)" ${filter === "850" ? "checked" : ""}/> <label for="850">850Watt</label>
-  <input type="radio" name="filtre" id="750" value="750" onclick="filtrerAlim(value)" ${filter === "750" ? "checked" : ""}/> <label for="750">750Watt</label>
-  <input type="radio" name="filtre" id="650" value="650" onclick="filtrerAlim(value)" ${filter === "650" ? "checked" : ""}/> <label for="650">650Watt</label>
-  <input type="radio" name="filtre" id="550" value="550" onclick="filtrerAlim(value)" ${filter === "550" ? "checked" : ""}/> <label for="550">550Watt</label>
-  <input type="reset" name ="reset" value="reset" onclick="filtrerAlim('all')"/>
   `;
   newSection.append(headerproduit);
-  const response = await fetch("https://easy-pc-maker.yoanc.dev/baptiste/power-supply");
+  const response = await fetch(
+    "https://easy-pc-maker.yoanc.dev/baptiste/power-supply",
+  );
   let data = await response.json();
 
-  if (ComposantSelected.cpu && ComposantSelected.ram && ComposantSelected.ssd && ComposantSelected.gpu && ComposantSelected.aio && ComposantSelected.case){
-    const minWatt = ComposantSelected.cpu.conso_cpu + ComposantSelected.ram.conso_ram + ComposantSelected.ssd.conso_ssd + ComposantSelected.gpu.conso_gpu + ComposantSelected.aio.conso_ref + ComposantSelected.case.conso_case;
-    data = data.filter(alim => alim.watt_alim >= minWatt);
+  if (
+    ComposantSelected.cpu &&
+    ComposantSelected.ram &&
+    ComposantSelected.ssd &&
+    ComposantSelected.gpu &&
+    ComposantSelected.aio &&
+    ComposantSelected.case
+  ) {
+    const minWatt =
+      ComposantSelected.cpu.conso_cpu +
+      ComposantSelected.ram.conso_ram +
+      ComposantSelected.ssd.conso_ssd +
+      ComposantSelected.gpu.conso_gpu +
+      ComposantSelected.aio.conso_ref +
+      ComposantSelected.case.conso_case;
+    data = data.filter((alim) => alim.watt_alim >= minWatt);
   }
 
-  data.forEach(element => {
-      let article = document.createElement("article");
-      article.classList.add("unproduit");
-      article.innerHTML = `
-      <img id="image" src="img/${element.nom_alim}.jpg"/>
+  data.forEach((element) => {
+    let article = document.createElement("article");
+    article.classList.add("unproduit");
+    article.innerHTML = `
+      <img class="image" src="img/${element.nom_alim}.jpg"/>
           <div>
               <p id="nom">Nom : ${element.nom_alim}</p>
               <p id="brand">Marque : ${element.brand_alim}</p>
@@ -416,210 +455,213 @@ async function replaceALIM(filter = "all"){
                   Choisir cette Alimentation
               </button>
           </div>`;
-      if (ComposantSelected.alim && ComposantSelected.alim.nom_alim === element.nom_alim) {
-        article.classList.add("selected");
-      }
-      newSection.append(article);
-    });
+    if (
+      ComposantSelected.alim &&
+      ComposantSelected.alim.nom_alim === element.nom_alim
+    ) {
+      article.classList.add("selected");
+    }
+    newSection.append(article);
+  });
   document.querySelector("#produitcontenant section").replaceWith(newSection);
 }
 
-async function filtrerCPU(thefilter){
+async function filtrerCPU(thefilter) {
   replaceCPU(thefilter);
 }
 
-async function filtrerRAM(thefilter){
+async function filtrerRAM(thefilter) {
   replaceRAM(thefilter);
 }
 
-async function filtrerMotherboard(thefilter){
+async function filtrerMotherboard(thefilter) {
   replaceMotherboard(thefilter);
 }
 
-async function filtrerSSD(thefilter){
+async function filtrerSSD(thefilter) {
   replaceSSD(thefilter);
 }
-async function filtrerCG(thefilter){
+async function filtrerCG(thefilter) {
   replaceCG(thefilter);
 }
 
-async function filtrerAIO(thefilter){
+async function filtrerAIO(thefilter) {
   replaceAIO(thefilter);
 }
 
-async function filtrerCase(thefilter){
+async function filtrerCase(thefilter) {
   replaceCASE(thefilter);
 }
 
-async function filtrerAlim(thefilter){
+async function filtrerAlim(thefilter) {
   replaceALIM(thefilter);
 }
 
-
 function choisirCPU(cpu) {
-    ComposantSelected.cpu = cpu;
-    localStorage.setItem("cpu", JSON.stringify(cpu));
-    Popup("CPU sélectionné : " + cpu.nom_cpu);
+  ComposantSelected.cpu = cpu;
+  localStorage.setItem("cpu", JSON.stringify(cpu));
+  Popup("CPU sélectionné : " + cpu.nom_cpu);
 
-    document.querySelectorAll("#lesproduits article").forEach(article => {
-        article.classList.remove("selected");
-    });
+  document.querySelectorAll("#lesproduits article").forEach((article) => {
+    article.classList.remove("selected");
+  });
 
-    const articles = document.querySelectorAll("#lesproduits article");
-    articles.forEach(article => {
-        if (article.querySelector("#nom").textContent.includes(cpu.nom_cpu)) {
-            article.classList.add("selected");
-        }
-    });
+  const articles = document.querySelectorAll("#lesproduits article");
+  articles.forEach((article) => {
+    if (article.querySelector("#nom").textContent.includes(cpu.nom_cpu)) {
+      article.classList.add("selected");
+    }
+  });
 
-    updateButtons();
+  updateButtons();
 }
 
 function choisirRAM(ram) {
-    ComposantSelected.ram = ram;
-    localStorage.setItem("ram", JSON.stringify(ram));
-    Popup("RAM sélectionnée : " + ram.nom_ram);
+  ComposantSelected.ram = ram;
+  localStorage.setItem("ram", JSON.stringify(ram));
+  Popup("RAM sélectionnée : " + ram.nom_ram);
 
-    document.querySelectorAll("#lesproduits article").forEach(article => {
-        article.classList.remove("selected");
-    });
+  document.querySelectorAll("#lesproduits article").forEach((article) => {
+    article.classList.remove("selected");
+  });
 
-    const articles = document.querySelectorAll("#lesproduits article");
-    articles.forEach(article => {
-        if (article.querySelector("#nom").textContent.includes(ram.nom_ram)) {
-            article.classList.add("selected");
-        }
-    });
+  const articles = document.querySelectorAll("#lesproduits article");
+  articles.forEach((article) => {
+    if (article.querySelector("#nom").textContent.includes(ram.nom_ram)) {
+      article.classList.add("selected");
+    }
+  });
 
-    updateButtons();
+  updateButtons();
 }
 
 function choisirMotherboard(mb) {
-    ComposantSelected.motherboard = mb;
-    localStorage.setItem("motherboard", JSON.stringify(mb));
-    Popup("Carte mère sélectionnée : " + mb.nom_motherboard);
+  ComposantSelected.motherboard = mb;
+  localStorage.setItem("motherboard", JSON.stringify(mb));
+  Popup("Carte mère sélectionnée : " + mb.nom_motherboard);
 
-    document.querySelectorAll("#lesproduits article").forEach(article => {
-        article.classList.remove("selected");
-    });
+  document.querySelectorAll("#lesproduits article").forEach((article) => {
+    article.classList.remove("selected");
+  });
 
-    const articles = document.querySelectorAll("#lesproduits article");
-    articles.forEach(article => {
-        if (article.querySelector("#nom").textContent.includes(mb.nom_motherboard)) {
-            article.classList.add("selected");
-        }
-    });
+  const articles = document.querySelectorAll("#lesproduits article");
+  articles.forEach((article) => {
+    if (
+      article.querySelector("#nom").textContent.includes(mb.nom_motherboard)
+    ) {
+      article.classList.add("selected");
+    }
+  });
 
-    updateButtons();
+  updateButtons();
 }
 
 function choisirSSD(ssd) {
-    ComposantSelected.ssd = ssd;
-    localStorage.setItem("ssd", JSON.stringify(ssd));
-    Popup("SSD sélectionné : " + ssd.nom_ssd);
+  ComposantSelected.ssd = ssd;
+  localStorage.setItem("ssd", JSON.stringify(ssd));
+  Popup("SSD sélectionné : " + ssd.nom_ssd);
 
-    document.querySelectorAll("#lesproduits article").forEach(article => {
-        article.classList.remove("selected");
-    });
+  document.querySelectorAll("#lesproduits article").forEach((article) => {
+    article.classList.remove("selected");
+  });
 
-    const articles = document.querySelectorAll("#lesproduits article");
-    articles.forEach(article => {
-        if (article.querySelector("#nom").textContent.includes(ssd.nom_ssd)) {
-            article.classList.add("selected");
-        }
-    });
+  const articles = document.querySelectorAll("#lesproduits article");
+  articles.forEach((article) => {
+    if (article.querySelector("#nom").textContent.includes(ssd.nom_ssd)) {
+      article.classList.add("selected");
+    }
+  });
 
-    updateButtons();
+  updateButtons();
 }
 
 function choisirGPU(gpu) {
-    ComposantSelected.gpu = gpu;
-    localStorage.setItem("gpu", JSON.stringify(gpu));
-    Popup("Carte graphique sélectionnée : " + gpu.nom_gpu);
+  ComposantSelected.gpu = gpu;
+  localStorage.setItem("gpu", JSON.stringify(gpu));
+  Popup("Carte graphique sélectionnée : " + gpu.nom_gpu);
 
-    document.querySelectorAll("#lesproduits article").forEach(article => {
-        article.classList.remove("selected");
-    });
+  document.querySelectorAll("#lesproduits article").forEach((article) => {
+    article.classList.remove("selected");
+  });
 
-    const articles = document.querySelectorAll("#lesproduits article");
-    articles.forEach(article => {
-        if (article.querySelector("#nom").textContent.includes(gpu.nom_gpu)) {
-            article.classList.add("selected");
-        }
-    });
+  const articles = document.querySelectorAll("#lesproduits article");
+  articles.forEach((article) => {
+    if (article.querySelector("#nom").textContent.includes(gpu.nom_gpu)) {
+      article.classList.add("selected");
+    }
+  });
 
-    updateButtons();
+  updateButtons();
 }
 
 function choisirAIO(aio) {
-    ComposantSelected.aio = aio;
-    localStorage.setItem("aio", JSON.stringify(aio));
-    Popup("Refroidissement sélectionné : " + aio.nom_ref);
+  ComposantSelected.aio = aio;
+  localStorage.setItem("aio", JSON.stringify(aio));
+  Popup("Refroidissement sélectionné : " + aio.nom_ref);
 
-    document.querySelectorAll("#lesproduits article").forEach(article => {
-        article.classList.remove("selected");
-    });
+  document.querySelectorAll("#lesproduits article").forEach((article) => {
+    article.classList.remove("selected");
+  });
 
-    const articles = document.querySelectorAll("#lesproduits article");
-    articles.forEach(article => {
-        if (article.querySelector("#nom").textContent.includes(aio.nom_ref)) {
-            article.classList.add("selected");
-        }
-    });
+  const articles = document.querySelectorAll("#lesproduits article");
+  articles.forEach((article) => {
+    if (article.querySelector("#nom").textContent.includes(aio.nom_ref)) {
+      article.classList.add("selected");
+    }
+  });
 
-    updateButtons();
+  updateButtons();
 }
 
 function choisirCase(cas) {
-    ComposantSelected.case = cas;
-    localStorage.setItem("case", JSON.stringify(cas));
-    Popup("Boîtier sélectionné : " + cas.nom_case);
+  ComposantSelected.case = cas;
+  localStorage.setItem("case", JSON.stringify(cas));
+  Popup("Boîtier sélectionné : " + cas.nom_case);
 
-    document.querySelectorAll("#lesproduits article").forEach(article => {
-        article.classList.remove("selected");
-    });
+  document.querySelectorAll("#lesproduits article").forEach((article) => {
+    article.classList.remove("selected");
+  });
 
-    const articles = document.querySelectorAll("#lesproduits article");
-    articles.forEach(article => {
-        if (article.querySelector("#nom").textContent.includes(cas.nom_case)) {
-            article.classList.add("selected");
-        }
-    });
+  const articles = document.querySelectorAll("#lesproduits article");
+  articles.forEach((article) => {
+    if (article.querySelector("#nom").textContent.includes(cas.nom_case)) {
+      article.classList.add("selected");
+    }
+  });
 
-    updateButtons();
+  updateButtons();
 }
 
 function choisirAlim(alim) {
-    ComposantSelected.alim = alim;
-    localStorage.setItem("alim", JSON.stringify(alim));
-    Popup("Alimentation sélectionnée : " + alim.nom_alim);
+  ComposantSelected.alim = alim;
+  localStorage.setItem("alim", JSON.stringify(alim));
+  Popup("Alimentation sélectionnée : " + alim.nom_alim);
 
-    document.querySelectorAll("#lesproduits article").forEach(article => {
-        article.classList.remove("selected");
-    });
+  document.querySelectorAll("#lesproduits article").forEach((article) => {
+    article.classList.remove("selected");
+  });
 
-    const articles = document.querySelectorAll("#lesproduits article");
-    articles.forEach(article => {
-        if (article.querySelector("#nom").textContent.includes(alim.nom_alim)) {
-            article.classList.add("selected");
-        }
-    });
+  const articles = document.querySelectorAll("#lesproduits article");
+  articles.forEach((article) => {
+    if (article.querySelector("#nom").textContent.includes(alim.nom_alim)) {
+      article.classList.add("selected");
+    }
+  });
 
-    updateButtons();
+  updateButtons();
 }
 
 function reset() {
-  composants.forEach(comp => localStorage.removeItem(comp));
-  composants.forEach(comp => ComposantSelected[comp] = null);
-  document.querySelectorAll("#lesproduits article").forEach(article => {
-      article.classList.remove("selected");
+  composants.forEach((comp) => localStorage.removeItem(comp));
+  composants.forEach((comp) => (ComposantSelected[comp] = null));
+  document.querySelectorAll("#lesproduits article").forEach((article) => {
+    article.classList.remove("selected");
   });
 
   updateButtons();
 
   location.reload();
 }
-
 
 function Popup(message) {
   let duration = 3000;
@@ -628,7 +670,7 @@ function Popup(message) {
   popup.textContent = message;
   document.getElementById("pop_info").appendChild(popup);
 
-  requestAnimationFrame(() => popup.style.opacity = "0.75");
+  requestAnimationFrame(() => (popup.style.opacity = "0.75"));
   setTimeout(() => {
     popup.style.opacity = "0";
     setTimeout(() => popup.remove(), 300);
@@ -636,19 +678,27 @@ function Popup(message) {
 }
 
 function updateButtons() {
-    for (let i = 0; i < composants.length; i++) {
-        const current = composants[i];
-        const btn = document.getElementById(`${current}`);
-        
-        if (i === 0) {
-            btn.disabled = false;
-        } else {
-            const previous = composants[i - 1];
-            btn.disabled = !ComposantSelected[previous];
-        }
+  for (let i = 0; i < composants.length; i++) {
+    const current = composants[i];
+    const btn = document.getElementById(`${current}`);
+
+    if (i === 0) {
+      btn.disabled = false;
+    } else {
+      const previous = composants[i - 1];
+      btn.disabled = !ComposantSelected[previous];
     }
+  }
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-    updateButtons();
+  updateButtons();
 });
+
+function validate() {
+  if (ComposantSelected.length < 8) {
+    Popup("Vous devez sélectionner tous les composants !");
+  }
+  
+ location.pathname = "./validation.html";
+}
