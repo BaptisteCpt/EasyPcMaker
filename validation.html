@@ -1,32 +1,50 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Easy PC Maker</title>
+    <title>Easy PC Maker – Récapitulatif</title>
+    <link rel="icon" type="image/x-icon" href="img/favicon.svg" />
     <link rel="stylesheet" href="css/styleValid.css" />
   </head>
   <body>
-    <section id="main">
+    <header>
+      <a href="index.html" class="back-btn">← Retour</a>
+      <img class="favicon" src="img/favicon.svg" alt="favicon" />
+      <h1> Easy PC Maker</h1>
+    </header>
+
+    <main id="main">
       <section id="recap">
-        <h1>Récapitulatif de votre configuration</h1>
-        <br/>
+        <h2>🖥️ Récapitulatif de votre configuration</h2>
+        <p class="recap-sub">Voici tous les composants sélectionnés pour votre PC.</p>
       </section>
-    </section>
+
+      <section id="total-bar">
+        <div class="total-conso">
+          ⚡ Consommation totale estimée : <strong id="total-conso-val">—</strong>
+        </div>
+        <div class="total-actions">
+          <a href="index.html" class="btn btn-edit">✏️ Modifier</a>
+          <button class="btn btn-print" onclick="window.print()">🖨️ Imprimer</button>
+          <button class="btn btn-reset" onclick="resetAll()">🔄 Recommencer</button>
+        </div>
+      </section>
+    </main>
+
     <footer>
       <p id="copyright">
         <script>
-          date = new Date();
-          year = date.getFullYear();
-          if (year == "2025") {
-            document.write("© 2025");
-          } else {
-            document.write("© 2025 - " + year);
-          }
+          const y = new Date().getFullYear();
+          document.write(
+            "© " +
+              (y === 2025 ? "2025" : "2025 – " + y) +
+              " Baptiste Coupat. Tous droits réservés.",
+          );
         </script>
-        Baptiste Coupat. Tous droits réservés.
       </p>
     </footer>
+
     <script src="javascript/scriptRecap.js"></script>
   </body>
 </html>
